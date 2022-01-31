@@ -2,24 +2,51 @@ import requests
 import json
 import re
 import time
+import random
 
 from Qzone_auto_twitter import QzoneSpider as autoTwitter
 from dotenv import load_dotenv
 import os
 
 load_dotenv(verbose=True, override=True, encoding='utf-8')
-windCity = os.getenv('windCity')
 appid = os.getenv('appid')
 appsecret = os.getenv('appsecret')
 
+
 def getWindSpeed(city):  # 获取风速
-    apiUrl = "https://tianqiapi.com/api?version=v6&appid=%s&appsecret=%s&city=%s" % (appid,appsecret,city)
+    math = random.randint(0,10)
+    cletter = ''
+    if math == 0:
+        cletter = 'a'
+    elif math == 1:
+        cletter = 'b'
+    elif math == 2:
+        cletter = 'c'
+    elif math == 3:
+        cletter = 'd'
+    elif math == 4:
+        cletter = 'e'
+    elif math == 5:
+        cletter = 'f'
+    elif math == 6:
+        cletter = 'g'
+    elif math == 7:
+        cletter = 'h'
+    elif math == 8 :
+        cletter = 'i'
+    elif math == 9:
+        cletter = 'k'
+    elif math == 10:
+        cletter = 'l'
+       
+        
+    apiUrl = "https://v1.hitokoto.cn/?encode=text&c" % (cletter)
     print(apiUrl)
     try:
         data = requests.get(apiUrl)
-        print("获取天气数据成功")
+        print("获取一言数据成功")
     except:
-        print("获取天气数据成功")
+        print("获取一言数据失败")
     try:
         print(data.text)
         decode = json.loads(data.text)
